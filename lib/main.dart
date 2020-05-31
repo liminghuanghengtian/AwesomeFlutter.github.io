@@ -1,13 +1,19 @@
+import 'package:awesomeflutter/second.dart';
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// 单行函数或方法的简写
+void main() => runApp(MyApp());
 
+// 应用根组件
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  /**
+   * 一个 widget 的主要工作是提供一个 build() 方法来描述如何根据其他较低级别的 widgets 来显示自己
+   */
   @override
   Widget build(BuildContext context) {
+    final wordPair = WordPair.random();
     return MaterialApp(
       title: 'Welcome to Flutter',
       theme: ThemeData(
@@ -26,14 +32,16 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
+      home: MyHomePage(
+          title:
+              "Flutter Demo Home Page"), /*Scaffold(
         appBar: AppBar(
           title: Text('Welcome to Flutter'),
         ),
         body: Center(
-          child: Text('Hello World'),
+          child: Text(wordPair.asPascalCase),
         ),
-      ),
+      ),*/
     );
   }
 }
@@ -110,6 +118,21 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            FlatButton(
+              child: Text("open new route"),
+              textColor: Colors.blue,
+              onPressed: () {
+                Navigator.push(
+                        context,
+                        // 函数类型
+                        MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return SecondPage();
+                            },
+                            maintainState: false))
+                    .then((value) => print(value));
+              },
             ),
           ],
         ),
